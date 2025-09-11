@@ -25,6 +25,15 @@ tracing-log = "0.2"
 secrecy = { version = "0.8", features = ["serde"] }
 tracing-actix-web = "0.7"
 serde-aux = "4"
+unicode-segmentation= "1"
+validator = "0.18"
+
+[dev-dependencies]
+claims = "0.7"
+fake = "2.9"
+quickcheck = "1.0"
+quickcheck_macros = "1"
+rand = "0.8"
 
 [dependencies.sqlx]
 version = "0.8"

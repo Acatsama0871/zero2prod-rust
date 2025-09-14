@@ -1,4 +1,7 @@
 # configuration.yaml
+email_client:
+    base_url: "localhost"
+    sender_email: "test@gmail.com"
 application:
     port: 8000
 database:

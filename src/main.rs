@@ -1,6 +1,7 @@
 use sqlx::postgres::PgPoolOptions;
 use std::net::TcpListener;
 use zero2prod_rust::configuration::get_configuration;
+use zero2prod_rust::email_client::EmailClient;
 use zero2prod_rust::startup::run;
 use zero2prod_rust::telemetry::{get_subscriber, init_subscriber};
 
@@ -17,5 +18,10 @@ async fn main() -> Result<(), std::io::Error> {
         configuration.application.host, configuration.application.port
     );
     let listener = TcpListener::bind(address).expect("Failed to bind port 8000");
-    run(listener, connection_pool)?.await
+    let sender_email = configuration
+        .email_client
+        .sender()
+        .expect("Invalid sender email address");
+    let email_client = EmailClient::new(configuration.email_client.base_url, sender_email);
+    run(listener, connection_pool, email_client)?.await
 }
